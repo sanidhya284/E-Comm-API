@@ -1,0 +1,239 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "description": "API for E-Commerce application",
+    "title": "E-Commerce API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3200"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      }
+    }
+  },
+  "paths": {
+    "/api/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get Products",
+        "description": "User will get all products",
+        "security": [{"JWT": {}}],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Products"],
+        "summary": "Add Product",
+        "description": "Add a new product (multipart/form-data, requires JWT)",
+        "security": [{"JWT": {}}],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "price": { "type": "number" },
+                  "description": { "type": "string" },
+                  "imageURL": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/api/products/filter": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Filter Products",
+        "description": "Filter products based on query parameters",
+        "security": [{"JWT": {}}],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get Product by ID",
+        "description": "Get a single product by its ID",
+        "security": [{"JWT": {}}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/api/products/rate": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "Rate Product",
+        "description": "Rate a product",
+        "security": [{"JWT": {}}],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": { "type": "string" },
+                  "rating": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/api/users/signup": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Signup",
+        "description": "User registration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "name": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" }
+        }
+      }
+    },
+    "/api/users/signin": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Login",
+        "description": "User Login to get token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "User Credentials",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Incorrect Credentials" }
+        }
+      }
+    },
+    "/api/cart": {
+      "post": {
+        "tags": ["Cart"],
+        "summary": "Add to Cart",
+        "description": "Add item to cart (requires JWT)",
+        "security": [{"JWT": {}}],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": { "type": "string" },
+                  "quantity": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        }
+      },
+      "get": {
+        "tags": ["Cart"],
+        "summary": "Get Cart Items",
+        "description": "Get all items in the cart (requires JWT)",
+        "security": [{"JWT": {}}],
+        "responses": {
+          "200": { "description": "OK" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/api/cart/{id}": {
+      "delete": {
+        "tags": ["Cart"],
+        "summary": "Delete Cart Item",
+        "description": "Delete an item from the cart by ID (requires JWT)",
+        "security": [{"JWT": {}}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Deleted" },
+          "404": { "description": "Not Found" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    }
+  }
+} 

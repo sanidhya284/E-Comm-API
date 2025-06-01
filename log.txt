@@ -1,0 +1,3 @@
+{"level":"info","message":"/api/products/rate?userID=2&productID=1&rating=4-undefined","service":" request-logging "}
+{"level":"info","message":"/api/productss/rate?userID=2&productID=1&rating=4-undefined","service":" request-logging "}
+{"level":"info","message":"/api/products/rate?userID=2&productID=1&rating=4-undefined","service":" request-logging "}
