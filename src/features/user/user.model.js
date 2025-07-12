@@ -1,3 +1,5 @@
+import {ApplicationError} from "../../error-handler/applicationError.js";
+import {getDB} from "../../config/mongodb.js";
 export default class UserModel{
     constructor(name, email, password, type, id)
     {
@@ -5,22 +7,11 @@ export default class UserModel{
         this.email = email;
         this.password = password;
         this.type = type;
-        this.id = id;
+	this._id = id;
     }
     static getAll()
     {
         return users;
-    }
-    static signUp(name, email, password, type)
-    {
-        const newUser = new UserModel(name, email, password, type);
-        newUser.id = users.length + 1;
-        users.push(newUser);
-        return newUser;
-    }
-    static signIn(email, password){
-        const result = users.find(u=> u.email == email && u.password == password)
-        return result;
     }
 }
 let users = [{
