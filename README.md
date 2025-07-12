@@ -1,21 +1,59 @@
-📦 E-Comm API
-A simple RESTful API for an e-commerce backend built using Node.js.
-It currently handles:
+# E-Commerce API
 
-🧑‍💼 Users
+This is a Node.js and Express-based RESTful API for a simple e-commerce platform. It includes core features like user management, product listings, cart functionality, orders, likes, and basic authentication.
 
-🛒 Cart
+## Features
 
-📦 Products
+* User Signup & Login (JWT-based)
+* Product Management with Category & Reviews
+* Cart Management (Add, Remove, View)
+* Order Processing
+* Like System for Products
+* File Upload Support for Product Images
+* Logging Middleware for API requests
+* Modular and layered folder structure (Controller, Routes, Models, Middleware)
 
-This is still a work in progress:
+## Tech Stack
 
-✅ REST architecture implemented
+* Node.js
+* Express
+* MongoDB (with Mongoose)
+* Swagger for API documentation
 
-❌ No database yet (data is in-memory)
+## Installation & Running the Server
 
-🔧 Planned improvements ahead
+1. Clone the repository:
 
-The source code is on GitHub, and the documentation/write-up is on Hashnode.
-Hashnode Link :-
-https://e-comm-api.hashnode.space/default-guide/v1.0?t=1748796094102
+   ```bash
+   git clone https://github.com/your-username/E-Comm-API.git
+   cd E-Comm-API
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Make sure MongoDB is running locally:
+
+   ```bash
+   mongod --dbpath /path/to/your/mongo/data
+   ```
+
+4. Start the server:
+
+   ```bash
+   nodemon server.js
+   # or
+   node server.js
+   ```
+
+5. The server will run at:
+   `http://localhost:4200`
+
+## API Documentation
+
+The full documentation is hosted on Hashnode:
+[View API Docs →](https://e-comm-api.hashnode.space/default-guide/v1.0?t=1752301161987)
+
